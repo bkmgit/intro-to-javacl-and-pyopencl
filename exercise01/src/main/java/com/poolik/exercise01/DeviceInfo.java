@@ -12,13 +12,13 @@ public class DeviceInfo {
     List<CLPlatform> clPlatforms = Arrays.asList(JavaCL.listPlatforms());
     System.out.println("\nNumber of OpenCL platforms: " + clPlatforms.size());
     System.out.println("\n-------------------------");
-    clPlatforms.forEach((platform) -> {
+    for (CLPlatform platform : clPlatforms) {
       System.out.println("Platform: " + platform.getName());
       System.out.println("Vendor: " + platform.getVendor());
       System.out.println("Version: " + platform.getVersion());
       List<CLDevice> devices = Arrays.asList(platform.listAllDevices(true));
       System.out.println("Number of devices: " + devices.size());
-      devices.forEach((device) -> {
+      for (CLDevice device : devices) {
         System.out.println("\t-------------------------");
         System.out.println("\t\tName: " + device.getName());
         System.out.println("\t\tVersion: " + device.getVersion());
@@ -29,8 +29,8 @@ public class DeviceInfo {
         System.out.println("\t\tMax Work-group Total Size: " + device.getMaxWorkGroupSize());
         System.out.println("\t\tMax Work-group Dims: " + Arrays.toString(device.getMaxWorkItemSizes()));
         System.out.println("\t-------------------------");
-      });
-    });
+      }
+    }
     System.out.println("\n-------------------------");
   }
 }

@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.nio.ByteOrder;
 import java.util.Random;
 
-import static java.util.stream.IntStream.range;
 import static org.bridj.Pointer.allocateFloats;
 
 public class VectorAdd {
@@ -38,10 +37,10 @@ public class VectorAdd {
     // Create a and b vectors and fill with random float values
     Pointer<Float> aPtr = allocateFloats(LENGTH).order(byteOrder);
     Pointer<Float> bPtr = allocateFloats(LENGTH).order(byteOrder);
-    range(0, LENGTH).forEach(i -> {
+    for (int i = 0; i < LENGTH; i++) {
       aPtr.set(i, i * random.nextFloat());
       bPtr.set(i, i * random.nextFloat());
-    });
+    }
 
     // Create OpenCL input buffers (using the native memory pointers aPtr and bPtr) :
     CLBuffer<Float> a = context.createFloatBuffer(CLMem.Usage.Input, aPtr);
@@ -55,7 +54,7 @@ public class VectorAdd {
     CLEvent addEvt = addVectors.enqueueNDRange(queue, globalSizes);
 
     Pointer<Float> c = out.read(queue, addEvt); // blocks until vadd finishes
-    System.out.printf("The kernel ran in %d s%n", (System.currentTimeMillis() - start) * 1000);
+    System.out.printf("The kernel ran in %f s%n", (System.currentTimeMillis() - start) / 1000.0f);
     checkResults(aPtr, bPtr, c);
   }
 

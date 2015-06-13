@@ -16,7 +16,6 @@ import org.bridj.Pointer;
 import java.io.IOException;
 import java.nio.ByteOrder;
 
-import static java.util.stream.IntStream.range;
 import static org.bridj.Pointer.allocateFloats;
 
 public class MatrixMultiplication {
@@ -38,10 +37,10 @@ public class MatrixMultiplication {
     // Create a and b vectors and fill with random float values
     Pointer<Float> aPtr = allocateFloats(SIZE).order(byteOrder);
     Pointer<Float> bPtr = allocateFloats(SIZE).order(byteOrder);
-    range(0, SIZE).forEach(i -> {
+    for (int i = 0; i < SIZE; i++) {
       aPtr.set(i, AVAL);
       bPtr.set(i, BVAL);
-    });
+    }
 
     // Create OpenCL input buffers (using the native memory pointers aPtr and bPtr) :
     CLBuffer<Float> a = context.createFloatBuffer(CLMem.Usage.Input, aPtr);

@@ -54,7 +54,7 @@ LENGTH = 1024
 
 # Create a compute context
 # Ask the user to select a platform/device on the CLI
-context = cl.create_some_context()
+context = cl.create_some_context(False)
 
 # Print out device info
 deviceinfo.output_device_info(context.devices[0])

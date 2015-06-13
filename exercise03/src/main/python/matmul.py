@@ -57,7 +57,7 @@ for i in range(COUNT):
 
 
 # Set up OpenCL
-context = cl.create_some_context()
+context = cl.create_some_context(False)
 queue = cl.CommandQueue(context)
 
 # Reset host buffers - just to play it safe
